@@ -4,7 +4,7 @@ import { green, blue } from "@ryu/enogu";
 
 const config = {
   // evaluate function
-  evaluate: (generic: Generic) => Math.abs(calculate(generic, [["x", 2]])) - 5,
+  evaluate: (generic: Generic) => Math.abs(calculate(generic, [["x", 1]])),
   // evaluate evaluation function
   evaluateEvaluation: (number: number) => -Math.abs(number),
   // createRandomGeneric function
@@ -57,7 +57,7 @@ for (let i = 0; i < config.maxGenerations; i++) {
       ...sortedAliveCells.slice(0, config.individuals - (config.bestPower + 1)).map((cell) => cell.cell),
       Math.random() < config.mutationRate
         ? createMutationCell()
-        : sortedAliveCells[sortedAliveCells.length - 1].cell ||
+        : sortedAliveCells[sortedAliveCells.length - 1] ? sortedAliveCells[sortedAliveCells.length - 1].cell :
           createMutationCell(),
     ];
 
