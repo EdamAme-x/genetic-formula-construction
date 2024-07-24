@@ -1,0 +1,11 @@
+{
+  "name": "@edamame-x/genetic-formula-construction",
+  "version": "0.0.0",
+  "private": true,
+  "tasks": {
+    "dev": "deno run -A --watch ./index.ts"
+  },
+  "imports": {
+    "@ryu/enogu": "jsr:@ryu/enogu@^0.4.1"
+  }
+}

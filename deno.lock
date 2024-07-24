@@ -1,0 +1,19 @@
+{
+  "version": "3",
+  "packages": {
+    "specifiers": {
+      "jsr:@ryu/enogu@^0.4.1": "jsr:@ryu/enogu@0.4.1"
+    },
+    "jsr": {
+      "@ryu/enogu@0.4.1": {
+        "integrity": "20405e5a80c8a1f6cabc6f6e585eb8ac6f3fdf186ba3a77da9cfca33d224be1e"
+      }
+    }
+  },
+  "remote": {},
+  "workspace": {
+    "dependencies": [
+      "jsr:@ryu/enogu@^0.4.1"
+    ]
+  }
+}
