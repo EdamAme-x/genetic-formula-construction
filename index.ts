@@ -4,11 +4,11 @@ import { green, blue } from "@ryu/enogu";
 
 const config = {
   // evaluate function
-  evaluate: (generic: Generic) => Math.abs(calculate(generic, [["x", 1]])),
+  evaluate: (generic: Generic) => Math.abs(calculate(generic)),
   // evaluate evaluation function
   evaluateEvaluation: (number: number) => -Math.abs(number),
   // createRandomGeneric function
-  createRandomGeneric: () => createRandomGeneric(["x"]),
+  createRandomGeneric: () => createRandomGeneric(),
   // number of individuals
   individuals: 10,
   // maxGenerations
