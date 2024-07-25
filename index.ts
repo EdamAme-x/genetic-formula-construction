@@ -4,17 +4,17 @@ import { green, blue } from "@ryu/enogu";
 
 const config = {
   // evaluate function
-  evaluate: (generic: Generic) => Math.abs(calculate(generic)),
+  evaluate: (generic: Generic) => Math.abs(calculate(generic) - 5),
   // evaluate evaluation function
   evaluateEvaluation: (number: number) => -Math.abs(number),
   // createRandomGeneric function
-  createRandomGeneric: () => createRandomGeneric(),
+  createRandomGeneric: () => createRandomGeneric([], 0.5, 5),
   // number of individuals
-  individuals: 10,
+  individuals: 25,
   // maxGenerations
   maxGenerations: 500,
   // mutation rate
-  mutationRate: 0.1,
+  mutationRate: 0.2,
   // power of crossOver
   crossOverPower: 10,
   // power of best,
@@ -48,6 +48,11 @@ for (let i = 0; i < config.maxGenerations; i++) {
 
     console.log(`Alive Cells: ${blue(sortedAliveCells.length.toString())}`);
 
+    if (sortedAliveCells.length === 0) {
+        console.log("No alive cells, will exit");
+        break
+    }
+
     const bestCell = sortedAliveCells[0].cell || createMutationCell();
     sortedAliveCells.shift()
     sortedAliveCells.pop()
@@ -72,5 +77,9 @@ for (let i = 0; i < config.maxGenerations; i++) {
     }
 }
 
-console.log(beforeGeneration.map((cell, index) => ({ cell, evaluation: beforeGeneration.map((cell) => config.evaluateEvaluation(cell.evaluation))[index] }))
-        .sort((a, b) => b.evaluation - a.evaluation).reverse())
+console.log(`
+[Result]
+
+Evaluation: ${config.evaluateEvaluation(calculate(beforeGeneration[0].generic))}
+
+Generic: ${JSON.stringify(beforeGeneration[0].generic)}`);
