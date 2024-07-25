@@ -1,7 +1,7 @@
 import { Generic } from "../generic/index.ts";
 
 export class Cell {
-  evaluation: number = 0;
+  evaluation: number | undefined;
 
   constructor(
     public generic: Generic,

@@ -4,21 +4,21 @@ import { green, blue } from "@ryu/enogu";
 
 const config = {
   // evaluate function
-  evaluate: (generic: Generic) => Math.abs(calculate(generic) - 5),
+  evaluate: (generic: Generic) => Math.abs(calculate(generic)),
   // evaluate evaluation function
   evaluateEvaluation: (number: number) => -Math.abs(number),
   // createRandomGeneric function
-  createRandomGeneric: () => createRandomGeneric([], 0.5, 5),
+  createRandomGeneric: () => createRandomGeneric([], 0.5, 2),
   // number of individuals
   individuals: 25,
   // maxGenerations
   maxGenerations: 500,
   // mutation rate
-  mutationRate: 0.2,
+  mutationRate: 0.25,
   // power of crossOver
   crossOverPower: 10,
   // power of best,
-  bestPower: 2,
+  bestPower: 1,
 };
 
 let beforeGeneration: Cell[] = [];
@@ -40,7 +40,7 @@ for (let i = 0; i < config.maxGenerations; i++) {
     const aliveCells = cells.filter((cell) => cell.evaluate(config.evaluate) === "alive");
 
     const evaluations = aliveCells
-        .map((cell) => config.evaluateEvaluation(cell.evaluation));
+        .map((cell) => config.evaluateEvaluation(cell.evaluation!));
 
     const sortedAliveCells = aliveCells
         .map((cell, index) => ({ cell, evaluation: evaluations[index] }))
@@ -61,7 +61,7 @@ for (let i = 0; i < config.maxGenerations; i++) {
       ...Array.from({ length: config.bestPower }).map(() => bestCell),
       ...sortedAliveCells.slice(0, config.individuals - (config.bestPower + 1)).map((cell) => cell.cell),
       Math.random() < config.mutationRate
-        ? createMutationCell()
+        ? new Cell(crossOver(createMutationCell().generic, bestCell.generic)[0])
         : sortedAliveCells[sortedAliveCells.length - 1] ? sortedAliveCells[sortedAliveCells.length - 1].cell :
           createMutationCell(),
     ];
@@ -75,11 +75,26 @@ for (let i = 0; i < config.maxGenerations; i++) {
         pick1.generic = crossoveredGeneric[0];
         pick2.generic = crossoveredGeneric[1];
     }
+
+    // Find Best
+    for (let j = 0, len = beforeGeneration.length; j < len; j++) {
+        const cell = beforeGeneration[j];
+        if (cell.evaluation === 0) {
+            console.log(`
+[Found Best]
+
+Evaluation: ${config.evaluateEvaluation(config.evaluate(cell.generic))}
+
+Generic: ${JSON.stringify(cell.generic)}
+`);
+            Deno.exit(0);
+        }
+    }
 }
 
 console.log(`
 [Result]
 
-Evaluation: ${config.evaluateEvaluation(calculate(beforeGeneration[0].generic))}
+Evaluation: ${config.evaluateEvaluation(config.evaluate(beforeGeneration[0].generic))}
 
 Generic: ${JSON.stringify(beforeGeneration[0].generic)}`);
