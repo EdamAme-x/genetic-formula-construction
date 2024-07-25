@@ -2,7 +2,7 @@ import { Cell } from "./cell/index.ts";
 import { Generic, calculate, createRandomGeneric, crossOver } from "./generic/index.ts";
 import { green, blue } from "@ryu/enogu";
 
-const numbers = [[1, 3], [2, 6], [3, 9]];
+const numbers = [[1, 3], [2, 6], [3, 9], [4, 12], [5, 15], [6, 18], [7, 21], [8, 24], [9, 27], [10, 30]];
 
 const config = {
   // evaluate function
@@ -21,13 +21,13 @@ const config = {
   // number of individuals
   individuals: 25,
   // maxGenerations
-  maxGenerations: 500,
+  maxGenerations: 1000,
   // mutation rate
   mutationRate: 0.25,
   // power of crossOver
   crossOverPower: 10,
   // power of best,
-  bestPower: 1,
+  bestPower: 2,
 };
 
 let beforeGeneration: Cell[] = [];
