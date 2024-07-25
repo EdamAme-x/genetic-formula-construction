@@ -3,13 +3,7 @@ const formulaFunctions = {
   sub: (left: number, right: number) => left - right,
   mul: (left: number, right: number) => left * right,
   div: (left: number, right: number) => left / right,
-  pow: (left: number, right: number) => {
-    let result = 1;
-    for (let i = 0; i < right; i++) {
-      result *= left;
-    }
-    return result;
-  },
+  pow: (left: number, right: number) => Math.pow(left, right),
   mod: (left: number, right: number) => left % right,
 } as const satisfies Record<Operator["name"], FormulaFunction>;
 

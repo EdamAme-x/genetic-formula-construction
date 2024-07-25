@@ -79,11 +79,13 @@ for (let i = 0; i < config.maxGenerations; i++) {
     // Find Best
     for (let j = 0, len = beforeGeneration.length; j < len; j++) {
         const cell = beforeGeneration[j];
-        if (cell.evaluation === 0) {
+        const evaluation = config.evaluateEvaluation(config.evaluate(cell.generic));
+        
+        if (evaluation === 0) {
             console.log(`
 [Found Best]
 
-Evaluation: ${config.evaluateEvaluation(config.evaluate(cell.generic))}
+Evaluation: ${evaluation}
 
 Generic: ${JSON.stringify(cell.generic)}
 `);
