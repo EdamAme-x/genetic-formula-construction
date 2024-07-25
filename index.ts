@@ -2,13 +2,22 @@ import { Cell } from "./cell/index.ts";
 import { Generic, calculate, createRandomGeneric, crossOver } from "./generic/index.ts";
 import { green, blue } from "@ryu/enogu";
 
+const numbers = [[1, 3], [2, 6], [3, 9]];
+
 const config = {
   // evaluate function
-  evaluate: (generic: Generic) => Math.abs(calculate(generic)),
+  evaluate: (generic: Generic) => {
+    let ev = 0;
+    for (const [key, value] of numbers) {
+        ev += Math.abs(value - calculate(generic, [["x", key]])) ** 2
+    }
+
+    return ev * (1 / numbers.length);
+  },
   // evaluate evaluation function
-  evaluateEvaluation: (number: number) => -Math.abs(number),
+  evaluateEvaluation: (number: number) => -number,
   // createRandomGeneric function
-  createRandomGeneric: () => createRandomGeneric([], 0.5, 2),
+  createRandomGeneric: () => createRandomGeneric(["x"], 0.5, 2),
   // number of individuals
   individuals: 25,
   // maxGenerations
